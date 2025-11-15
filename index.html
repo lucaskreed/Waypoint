@@ -233,6 +233,12 @@
       transform: translateY(0);
     }
 
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
     .forgot-password {
       text-align: right;
       margin-top: 12px;
@@ -267,74 +273,6 @@
       margin-bottom: 20px;
       font-size: 0.95em;
       border-left: 4px solid #059669;
-    }
-
-    .user-dashboard {
-      text-align: center;
-    }
-
-    .user-dashboard h2 {
-      color: #1e3a8a;
-      margin-bottom: 30px;
-      font-size: 2.2em;
-      font-weight: 700;
-    }
-
-    .user-info {
-      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-      padding: 30px;
-      border-radius: 15px;
-      margin-bottom: 30px;
-      border: 2px solid #bae6fd;
-    }
-
-    .user-info p {
-      color: #0c4a6e;
-      margin-bottom: 12px;
-      font-size: 1.1em;
-    }
-
-    .user-info strong {
-      color: #1e3a8a;
-      font-weight: 700;
-    }
-
-    .welcome-message {
-      font-size: 1.1em;
-      color: #64748b;
-      margin-bottom: 25px;
-      line-height: 1.6;
-    }
-
-    .sign-out-btn {
-      background: white;
-      color: #3b82f6;
-      border: 2px solid #3b82f6;
-    }
-
-    .sign-out-btn:hover {
-      background: #3b82f6;
-      color: white;
-    }
-
-    .divider {
-      display: flex;
-      align-items: center;
-      margin: 25px 0;
-      color: #94a3b8;
-      font-size: 0.9em;
-    }
-
-    .divider::before,
-    .divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: #e2e8f0;
-    }
-
-    .divider span {
-      padding: 0 15px;
     }
 
     .extra-info {
@@ -398,6 +336,20 @@
     .hidden {
       display: none;
     }
+
+    .loading-spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 3px solid rgba(255,255,255,.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body>
@@ -440,70 +392,53 @@
     </div>
 
     <div class="right-panel">
-      <!-- Auth Section -->
-      <div id="auth-section">
-        <div class="auth-header">
-          <h2 id="auth-title">Welcome Back</h2>
-          <p id="auth-subtitle">Sign in to manage your clients</p>
-        </div>
+      <div class="auth-header">
+        <h2 id="auth-title">Welcome Back</h2>
+        <p id="auth-subtitle">Sign in to manage your clients</p>
+      </div>
 
-        <div class="role-selector" style="margin-bottom: 25px;">
-          <p style="text-align: center; color: #64748b; margin-bottom: 12px; font-size: 0.95em;">I am a:</p>
-          <div style="display: flex; gap: 10px; margin-bottom: 20px;">
-            <button type="button" class="role-btn active" id="trainer-role" onclick="selectRole('trainer')">
-              💪 Trainer
-            </button>
-            <button type="button" class="role-btn" id="gym-role" onclick="selectRole('gym')">
-              🏢 Gym Owner
-            </button>
-            <button type="button" class="role-btn" id="client-role" onclick="selectRole('client')">
-              🎯 Client
-            </button>
-          </div>
-        </div>
-
-        <div class="tab-buttons">
-          <button class="tab-btn active" onclick="switchToSignIn()">Sign In</button>
-          <button class="tab-btn" onclick="switchToSignUp()">Create Account</button>
-        </div>
-
-        <div id="message-area"></div>
-
-        <form id="auth-form" onsubmit="handleSubmit(event)">
-          <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" placeholder="trainer@example.com" required>
-          </div>
-
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" placeholder="Enter your password" required minlength="6">
-          </div>
-
-          <div class="forgot-password" id="forgot-link">
-            <a href="#" onclick="handleForgotPassword(event)">Forgot password?</a>
-          </div>
-
-          <button type="submit" class="submit-btn" id="submit-btn">Sign In</button>
-        </form>
-
-        <div class="extra-info" id="extra-info">
-          By signing up, you agree to our Terms of Service and Privacy Policy
+      <div class="role-selector" style="margin-bottom: 25px;">
+        <p style="text-align: center; color: #64748b; margin-bottom: 12px; font-size: 0.95em;">I am a:</p>
+        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+          <button type="button" class="role-btn active" id="trainer-role" onclick="selectRole('trainer')">
+            💪 Trainer
+          </button>
+          <button type="button" class="role-btn" id="gym-role" onclick="selectRole('gym')">
+            🏢 Gym Owner
+          </button>
+          <button type="button" class="role-btn" id="client-role" onclick="selectRole('client')">
+            🎯 Client
+          </button>
         </div>
       </div>
 
-      <!-- User Dashboard Section -->
-      <div id="user-section" class="hidden">
-        <div class="user-dashboard">
-          <h2>Welcome Back! 🎉</h2>
-          <p class="welcome-message">You're all set to manage your clients and help them achieve their wellness goals.</p>
-          <div class="user-info">
-            <p><strong>Account:</strong> <span id="user-email"></span></p>
-            <p><strong>Status:</strong> Active & Ready</p>
-            <p><strong>Plan:</strong> Professional Trainer</p>
-          </div>
-          <button class="submit-btn sign-out-btn" onclick="signOut()">Sign Out</button>
+      <div class="tab-buttons">
+        <button class="tab-btn active" onclick="switchToSignIn()">Sign In</button>
+        <button class="tab-btn" onclick="switchToSignUp()">Create Account</button>
+      </div>
+
+      <div id="message-area"></div>
+
+      <form id="auth-form" onsubmit="handleSubmit(event)">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="trainer@example.com" required>
         </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter your password" required minlength="6">
+        </div>
+
+        <div class="forgot-password" id="forgot-link">
+          <a href="#" onclick="handleForgotPassword(event)">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submit-btn">Sign In</button>
+      </form>
+
+      <div class="extra-info" id="extra-info">
+        By signing up, you agree to our Terms of Service and Privacy Policy
       </div>
     </div>
   </div>
@@ -553,7 +488,7 @@
     function switchToSignIn() {
       isSignUp = false;
       document.getElementById('auth-title').textContent = 'Welcome Back';
-      document.getElementById('auth-subtitle').textContent = 'Sign in to manage your clients';
+      selectRole(userRole); // Update subtitle based on current role
       document.getElementById('submit-btn').textContent = 'Sign In';
       document.getElementById('forgot-link').style.display = 'block';
       document.getElementById('extra-info').style.display = 'none';
@@ -565,7 +500,7 @@
     function switchToSignUp() {
       isSignUp = true;
       document.getElementById('auth-title').textContent = 'Start Your Journey';
-      document.getElementById('auth-subtitle').textContent = 'Create an account for your training business';
+      selectRole(userRole); // Update subtitle based on current role
       document.getElementById('submit-btn').textContent = 'Create Account';
       document.getElementById('forgot-link').style.display = 'none';
       document.getElementById('extra-info').style.display = 'block';
@@ -580,16 +515,27 @@
 
       const email = document.getElementById('email').value;
       const password = document.getElementById('password').value;
+      const submitBtn = document.getElementById('submit-btn');
 
       if (password.length < 6) {
         showMessage('Password must be at least 6 characters long', 'error');
         return;
       }
 
-      if (isSignUp) {
-        await signUp(email, password);
-      } else {
-        await signIn(email, password);
+      // Disable button and show loading
+      submitBtn.disabled = true;
+      const originalText = submitBtn.textContent;
+      submitBtn.innerHTML = '<span class="loading-spinner"></span> Processing...';
+
+      try {
+        if (isSignUp) {
+          await signUp(email, password);
+        } else {
+          await signIn(email, password);
+        }
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
       }
     }
 
@@ -599,7 +545,7 @@
         password: password,
         options: {
           data: {
-            role: userRole, // Store role in user metadata
+            role: userRole,
             account_type: userRole === 'gym' ? 'organization' : 'individual'
           }
         }
@@ -628,16 +574,26 @@
       if (error) {
         showMessage(error.message, 'error');
       } else {
-        showUserSection(data.user);
+        // Show success message
+        showMessage('Sign in successful! Redirecting to dashboard...', 'success');
+        
+        // Redirect based on user role after a short delay
+        setTimeout(() => {
+          const role = data.user.user_metadata?.role || 'trainer';
+          
+          // In production, you would redirect to actual dashboard URLs
+          if (role === 'trainer' || role === 'gym') {
+            showMessage('✅ Redirecting to Trainer Dashboard...', 'success');
+            // window.location.href = '/trainer-dashboard.html';
+          } else if (role === 'client') {
+            showMessage('✅ Redirecting to Client Portal...', 'success');
+            // window.location.href = '/client-portal.html';
+          }
+        }, 1000);
       }
     }
 
-    async function signOut() {
-      await supabase.auth.signOut();
-      showAuthSection();
-    }
-
-    function handleForgotPassword(event) {
+    async function handleForgotPassword(event) {
       event.preventDefault();
       const email = document.getElementById('email').value;
       if (!email) {
@@ -645,36 +601,12 @@
         return;
       }
       
-      supabase.auth.resetPasswordForEmail(email).then(({ error }) => {
-        if (error) {
-          showMessage(error.message, 'error');
-        } else {
-          showMessage('Password reset email sent! Check your inbox.', 'success');
-        }
-      });
-    }
-
-    function showUserSection(user) {
-      document.getElementById('auth-section').classList.add('hidden');
-      document.getElementById('user-section').classList.remove('hidden');
-      document.getElementById('user-email').textContent = user.email;
-      
-      // Check user role and show appropriate dashboard message
-      const role = user.user_metadata?.role || 'trainer';
-      const planText = role === 'trainer' ? 'Professional Trainer' : 'Client Account';
-      document.querySelector('.user-info p:last-child').innerHTML = `<strong>Plan:</strong> ${planText}`;
-      
-      // In a real app, you'd redirect to different dashboards here:
-      // if (role === 'trainer') window.location.href = '/trainer-dashboard';
-      // if (role === 'client') window.location.href = '/client-dashboard';
-    }
-
-    function showAuthSection() {
-      document.getElementById('auth-section').classList.remove('hidden');
-      document.getElementById('user-section').classList.add('hidden');
-      document.getElementById('auth-form').reset();
-      clearMessage();
-      switchToSignIn();
+      const { error } = await supabase.auth.resetPasswordForEmail(email);
+      if (error) {
+        showMessage(error.message, 'error');
+      } else {
+        showMessage('Password reset email sent! Check your inbox.', 'success');
+      }
     }
 
     function showMessage(message, type) {
@@ -688,10 +620,10 @@
 
     // Check if user is already logged in
     supabase.auth.onAuthStateChange((event, session) => {
-      if (session) {
-        showUserSection(session.user);
-      } else {
-        showAuthSection();
+      if (event === 'SIGNED_IN' && session) {
+        const role = session.user.user_metadata?.role || 'trainer';
+        console.log('User signed in with role:', role);
+        // In production, redirect here
       }
     });
   </script>
