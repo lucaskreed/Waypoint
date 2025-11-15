@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My App</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <div id="auth-section">
+    <h2>Sign Up</h2>
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="signUp()">Sign Up</button>
+    <button onclick="signIn()">Sign In</button>
+  </div>
+
+  <div id="user-section" style="display:none;">
+    <h2>Welcome!</h2>
+    <p>Email: <span id="user-email"></span></p>
+    <button onclick="signOut()">Sign Out</button>
+  </div>
+
+  <script>
+    // Initialize Supabase (get these from your Supabase dashboard)
+    const supabase = window.supabase.createClient(
+      'YOUR_SUPABASE_URL',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9rZWl4d2FuZGpma2NhcmxhcHNoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMxNTA5ODcsImV4cCI6MjA3ODcyNjk4N30.OZSPNu8GRraiD3E0j--_ac92l5SUlIC3chXOUwomxjY'
+    );
+
+    // Sign Up Function
+    async function signUp() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      
+      const { data, error } = await supabase.auth.signUp({
+        email: email,
+        password: password
+      });
+      
+      if (error) {
+        alert('Error: ' + error.message);
+      } else {
+        alert('Check your email for verification link!');
+      }
+    }
+
+    // Sign In Function
+    async function signIn() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email,
+        password: password
+      });
+      
+      if (error) {
+        alert('Error: ' + error.message);
+      } else {
+        showUserSection(data.user);
+      }
+    }
+
+    // Sign Out Function
+    async function signOut() {
+      await supabase.auth.signOut();
+      showAuthSection();
+    }
+
+    // UI Helper Functions
+    function showUserSection(user) {
+      document.getElementById('auth-section').style.display = 'none';
+      document.getElementById('user-section').style.display = 'block';
+      document.getElementById('user-email').textContent = user.email;
+    }
+
+    function showAuthSection() {
+      document.getElementById('auth-section').style.display = 'block';
+      document.getElementById('user-section').style.display = 'none';
+    }
+
+    // Check if user is already logged in
+    supabase.auth.onAuthStateChange((event, session) => {
+      if (session) {
+        showUserSection(session.user);
+      } else {
+        showAuthSection();
+      }
+    });
+  </script>
+</body>
+</html>
