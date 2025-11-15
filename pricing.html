@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pricing - WellnessPro</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #10b981 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .header {
+      text-align: center;
+      color: white;
+      margin-bottom: 60px;
+    }
+    
+    .header h1 {
+      font-size: 3em;
+      margin-bottom: 15px;
+      font-weight: 900;
+    }
+    
+    .header p {
+      font-size: 1.3em;
+      opacity: 0.95;
+    }
+    
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+    
+    .pricing-card {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      transition: all 0.3s;
+      position: relative;
+    }
+    
+    .pricing-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+    }
+    
+    .popular-badge {
+      position: absolute;
+      top: -15px;
+      right: 30px;
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 0.9em;
+    }
+    
+    .plan-name {
+      font-size: 2em;
+      color: #1e3a8a;
+      margin-bottom: 10px;
+      font-weight: 800;
+    }
+    
+    .plan-price {
+      font-size: 3.5em;
+      color: #1e3a8a;
+      font-weight: 900;
+      margin-bottom: 5px;
+    }
+    
+    .plan-price span {
+      font-size: 0.4em;
+      color: #64748b;
+      font-weight: 500;
+    }
+    
+    .plan-description {
+      color: #64748b;
+      margin-bottom: 30px;
+      font-size: 1.1em;
+    }
+    
+    .features-list {
+      list-style: none;
+      margin-bottom: 30px;
+    }
+    
+    .features-list li {
+      padding: 12px 0;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .features-list li::before {
+      content: "✓";
+      color: #10b981;
+      font-weight: 900;
+      font-size: 1.3em;
+    }
+    
+    .select-btn {
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.1em;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .select-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.5);
+    }
+    
+    .back-link {
+      text-align: center;
+      margin-top: 40px;
+    }
+    
+    .back-link a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.2em;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+    
+    .back-link a:hover {
+      opacity: 0.8;
+    }
+    
+    .faq-section {
+      max-width: 800px;
+      margin: 80px auto 0;
+      color: white;
+    }
+    
+    .faq-section h2 {
+      text-align: center;
+      font-size: 2.5em;
+      margin-bottom: 40px;
+      font-weight: 900;
+    }
+    
+    .faq-item {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      padding: 25px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      border: 2px solid rgba(255,255,255,0.2);
+    }
+    
+    .faq-question {
+      font-size: 1.3em;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    
+    .faq-answer {
+      font-size: 1.1em;
+      opacity: 0.9;
+      line-height: 1.6;
+    }
+    
+    @media (max-width: 768px) {
+      .header h1 { font-size: 2.2em; }
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Simple, Transparent Pricing</h1>
+      <p>Choose the plan that works best for your business</p>
+    </div>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price">$29<span>/month</span></div>
+        <div class="plan-description">Perfect for new trainers</div>
+        <ul class="features-list">
+          <li>Up to 10 clients</li>
+          <li>Basic nutrition planning</li>
+          <li>Workout program builder</li>
+          <li>Progress tracking</li>
+          <li>Email support</li>
+          <li>Mobile app access</li>
+        </ul>
+        <button class="select-btn" onclick="window.location.href='login.html'">Get Started</button>
+      </div>
+
+      <div class="pricing-card">
+        <div class="popular-badge">MOST POPULAR</div>
+        <div class="plan-name">Professional</div>
+        <div class="plan-price">$79<span>/month</span></div>
+        <div class="plan-description">For growing coaching businesses</div>
+        <ul class="features-list">
+          <li>Up to 50 clients</li>
+          <li>Advanced nutrition planning</li>
+          <li>Custom workout templates</li>
+          <li>Habit tracking</li>
+          <li>Analytics & reports</li>
+          <li>Priority support</li>
+          <li>Mobile app access</li>
+          <li>Client messaging</li>
+          <li>Video call integration</li>
+        </ul>
+        <button class="select-btn" onclick="window.location.href='login.html'">Get Started</button>
+      </div>
+
+      <div class="pricing-card">
+        <div class="plan-name">Enterprise</div>
+        <div class="plan-price">$199<span>/month</span></div>
+        <div class="plan-description">For gyms & large teams</div>
+        <ul class="features-list">
+          <li>Unlimited clients</li>
+          <li>Multiple trainer accounts</li>
+          <li>White-label branding</li>
+          <li>API access</li>
+          <li>Advanced integrations</li>
+          <li>Dedicated account manager</li>
+          <li>Custom features</li>
+          <li>Priority phone support</li>
+          <li>Team collaboration tools</li>
+          <li>Advanced analytics</li>
+        </ul>
+        <button class="select-btn" onclick="window.location.href='login.html'">Contact Sales</button>
+      </div>
+    </div>
+
+    <div class="faq-section">
+      <h2>Frequently Asked Questions</h2>
+      
+      <div class="faq-item">
+        <div class="faq-question">Can I try before I buy?</div>
+        <div class="faq-answer">Yes! All plans come with a 14-day free trial. No credit card required to start.</div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">Can I change plans later?</div>
+        <div class="faq-answer">Absolutely! You can upgrade or downgrade your plan at any time. Changes take effect immediately.</div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">What payment methods do you accept?</div>
+        <div class="faq-answer">We accept all major credit cards (Visa, MasterCard, American Express) and ACH bank transfers for annual plans.</div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">Is there a discount for annual billing?</div>
+        <div class="faq-answer">Yes! Save 20% when you pay annually. That's 2 months free on all plans.</div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">What happens if I exceed my client limit?</div>
+        <div class="faq-answer">We'll notify you and you can easily upgrade to the next tier. No clients will be removed.</div>
+      </div>
+      
+      <div class="faq-item">
+        <div class="faq-question">Do my clients need to pay?</div>
+        <div class="faq-answer">No! Your subscription covers unlimited client access at no additional cost to them.</div>
+      </div>
+    </div>
+
+    <div class="back-link">
+      <a href="index.html">← Back to Home</a>
+    </div>
+  </div>
+</body>
+</html>
