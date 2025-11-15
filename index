@@ -22,7 +22,7 @@
   <script>
     // Initialize Supabase (get these from your Supabase dashboard)
     const supabase = window.supabase.createClient(
-      'YOUR_SUPABASE_URL',
+      'https://okeixwandjfkcarlapsh.supabase.co',
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9rZWl4d2FuZGpma2NhcmxhcHNoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMxNTA5ODcsImV4cCI6MjA3ODcyNjk4N30.OZSPNu8GRraiD3E0j--_ac92l5SUlIC3chXOUwomxjY'
     );
 
